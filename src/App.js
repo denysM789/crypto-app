@@ -1,33 +1,34 @@
-import React from "react";
+import React, { useState } from "react";
 import { CoinList, CoinPage, Portfolio } from "pages";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import Navbar  from './components/Navbar/Navbar';
+import styled, { ThemeProvider } from "styled-components";
+import { GlobalStyles } from "styles/globalStyles";
+import { lightTheme, darkTheme } from "styles/globalStyles";
+import { Toggle } from "./components/Toggle/Toggle.js";
+import { useDarkMode } from "styles/useDarkMode";
+
+
+
 
 export default function App() {
-  return (
-    <Router>
-      <div>
-        <nav>
-          <ul>
-            <li>
-              <Link to="/">Coins</Link>
-            </li>
-            <li>
-              <Link to="/portfolio">Portfolio</Link>
-            </li>
-            <li>
-              <Link to="/coin">{}</Link>
-            </li>
-          </ul>
-        </nav>
 
-        {/* A <Switch> looks through its children <Route>s and
-            renders the first one that matches the current URL. */}
+  
+  const [theme, toggleTheme] = useDarkMode();
+  const themeMode = theme === "light" ? lightTheme : darkTheme;
+
+  return (
+    <ThemeProvider theme={theme === "light" ? lightTheme : darkTheme}>
+    <GlobalStyles/>
+      <Router>
+      <Navbar/>
         <Switch>
           <Route exact path="/coin/:coinId" component={CoinPage}></Route>
           <Route exact path="/portfolio" component={Portfolio}></Route>
           <Route exact path="/" component={CoinList}></Route>
         </Switch>
-      </div>
     </Router>
+    </ThemeProvider>
+    
   );
 }
