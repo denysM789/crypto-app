@@ -1,14 +1,15 @@
 import React from "react";
 import { StyledInput } from "./Searchbar.styles";
+import { StyledForm } from "./Searchbar.styles";
 
 class Searchbar extends React.Component {
   state = {
-    value: ""
+    value: "",
   };
 
   handleChange = (e) => {
     this.setState({
-      value: e.target.value.charAt(0).toUpperCase() + e.target.value.slice(1)
+      value: e.target.value.charAt(0).toUpperCase() + e.target.value.slice(1),
     });
   };
 
@@ -18,18 +19,18 @@ class Searchbar extends React.Component {
     this.setState({ value: "" });
   };
 
-  
-
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
-        <StyledInput
-          value={this.state.value}
-          placeholder="Search..."
-          onChange={this.handleChange}
-        />
-      </form>
-      
+      <div className="flex items-center">
+        <StyledForm onSubmit={this.handleSubmit}>
+          <img src="https://crypto-tracker-five-delta.vercel.app/static/media/search.62b80724.svg"></img>
+          <StyledInput
+            value={this.state.value}
+            placeholder="Search..."
+            onChange={this.handleChange}
+          />
+        </StyledForm>
+      </div>
     );
   }
 }

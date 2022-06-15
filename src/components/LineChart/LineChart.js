@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Line } from "react-chartjs-2";
 import { Chart as ChartJS, LineElement } from "chart.js/auto";
+import { Chart } from "react-chartjs-2";
+//import faker from "faker";
 
 const LineChart = () => {
   const [chart, setChart] = useState();
@@ -43,9 +45,10 @@ const LineChart = () => {
         datasets: [
           {
             label: "BTC",
-            backgroundColor: '#2550ea',
+            backgroundColor: "#2550ea",
             borderColor: "#2550ea",
-            color: '#2550ea',
+            fill: true,
+            color: "#2550ea",
             showLine: true,
             data: chart?.map((el) => el[1]),
             pointRadius: 0,
@@ -57,24 +60,32 @@ const LineChart = () => {
       options={{
         maintainAspectRatio: false,
         interaction: {
-            mode: 'index',
-            intersect: false,
+          mode: "index",
+          intersect: false,
         },
         scales: {
           y: {
-            ticks: { display: false, beginAtZero: true, maxTicksLimit: 5, },
-            grid: { drawOnChartArea: false, drawTicks: false, drawBorder: false },
+            ticks: { display: false, beginAtZero: true, maxTicksLimit: 5 },
+            grid: {
+              drawOnChartArea: false,
+              drawTicks: false,
+              drawBorder: false,
+            },
           },
           x: {
-            grid: { drawOnChartArea: false, drawTicks: false, drawBorder: false },
+            grid: {
+              drawOnChartArea: false,
+              drawTicks: false,
+              drawBorder: false,
+            },
             ticks: {
-                align: "start",
-                source: "auto",
-                autoSkip: true,
+              align: "start",
+              source: "auto",
+              autoSkip: true,
               maxRotation: 0,
               maxTicksLimit: 7,
               font: {
-                  size: 9,
+                size: 9,
               },
               callback: function (value, index) {
                 return dataLabels[index].slice(3, 5);

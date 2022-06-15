@@ -2,7 +2,12 @@ import React from "react";
 import axios from "axios";
 import { render } from "@testing-library/react";
 import Coin from "components/Coin/Coin";
-import { CoinLogo, StyledContainer, StyledTHead, StyledTable } from "./CoinOverview.styles";
+import {
+  CoinLogo,
+  StyledContainer,
+  StyledTHead,
+  StyledTable,
+} from "./CoinOverview.styles";
 import "./styles.css";
 
 class CoinOverview extends React.Component {
@@ -17,8 +22,6 @@ class CoinOverview extends React.Component {
         "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=50&page=1&sparkline=true&price_change_percentage=1h%2C24h%2C7d"
       );
       this.setState({ list: data });
-      console.log(data)
-     
     } catch (err) {
       console.log(err);
     }
@@ -54,7 +57,12 @@ class CoinOverview extends React.Component {
                 <tr>
                   <td>{index + 1}</td>
                   <td className="flex pl-2 pr-4">
-                    <img className="object-scale-down h-8 w-8 pr-3 pb-2" src={obj.image} alt="" /> {obj.name} ({obj.symbol.toUpperCase()})
+                    <img
+                      className="object-scale-down h-8 w-8 pr-3 pb-2"
+                      src={obj.image}
+                      alt=""
+                    />{" "}
+                    {obj.name} ({obj.symbol.toUpperCase()})
                   </td>
                   <td>
                     {Math.round(
@@ -69,15 +77,9 @@ class CoinOverview extends React.Component {
                       obj.price_change_percentage_7d_in_currency
                     ).toFixed(2)}
                   </td>
-                  <td>
-                    Test 1
-                  </td>
-                  <td>
-                    Test 2
-                  </td>
-                  <td>
-                    Test 3
-                  </td>
+                  <td>Test 1</td>
+                  <td>Test 2</td>
+                  <td>Test 3</td>
                 </tr>
               ))}
             </tbody>
