@@ -1,13 +1,28 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
+import { useDarkMode } from "hooks/useDarkMode";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+export const ThemeContext = React.createContext();
+
+const ThemeSwitcherProvider = ({ children }) => {
+  const [theme, toggleTheme] = useDarkMode();
+
+  return (
+    <ThemeContext.Provider value={{ theme, toggleTheme }}>
+      {children}
+    </ThemeContext.Provider>
+  );
+};
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <App />
+    <ThemeSwitcherProvider>
+      <App />
+    </ThemeSwitcherProvider>
   </React.StrictMode>
 );
 
