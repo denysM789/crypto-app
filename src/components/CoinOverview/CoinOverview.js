@@ -7,8 +7,13 @@ import {
   StyledContainer,
   StyledTHead,
   StyledTable,
+  Styled24VMarketCapTextWrapper,
+  DoubleSpan,
+  SliderWrapper,
+  Slider,
 } from "./CoinOverview.styles";
 import "./styles.css";
+import Sparkline from "components/Sparkline/Sparkline";
 
 class CoinOverview extends React.Component {
   state = {
@@ -33,7 +38,6 @@ class CoinOverview extends React.Component {
 
   render() {
     const list = this.state.list;
-    const values = Object.values(list);
 
     return (
       <div className="p-8">
@@ -53,7 +57,7 @@ class CoinOverview extends React.Component {
               </tr>
             </StyledTHead>
             <tbody className="space-x-4">
-              {list.slice(0, 20).map((obj, index) => (
+              {list.map((obj, index) => (
                 <tr>
                   <td>{index + 1}</td>
                   <td className="flex pl-2 pr-4">
@@ -77,9 +81,77 @@ class CoinOverview extends React.Component {
                       obj.price_change_percentage_7d_in_currency
                     ).toFixed(2)}
                   </td>
-                  <td>Test 1</td>
-                  <td>Test 2</td>
-                  <td>Test 3</td>
+                  <td>
+                    <DoubleSpan height="8px" width="100%" background="#2172e5">
+                      <Styled24VMarketCapTextWrapper
+                        width={(obj.total_volume / obj.market_cap) * 100}
+                        background={"white"}
+                      >
+                        <p>
+                          $
+                          {Intl.NumberFormat("en-US", {
+                            notation: "compact",
+                            maximumFractionDigits: 1,
+                          }).format(obj.total_volume)}
+                        </p>
+
+                        <p>
+                          $
+                          {Intl.NumberFormat("en-US", {
+                            notation: "compact",
+                            maximumFractionDigits: 1,
+                          }).format(obj.market_cap)}
+                        </p>
+                      </Styled24VMarketCapTextWrapper>
+                      <SliderWrapper
+                        height="8px"
+                        width="100%"
+                        background="#2172e5"
+                      >
+                        <Slider
+                          width={(obj.total_volume / obj.market_cap) * 100}
+                          background="white"
+                        ></Slider>
+                      </SliderWrapper>
+                    </DoubleSpan>
+                  </td>
+                  <td>
+                    <DoubleSpan height="8px" width="100%" background="#2172e5">
+                      <Styled24VMarketCapTextWrapper
+                        width={(obj.total_volume / obj.market_cap) * 100}
+                        background={"white"}
+                      >
+                        <p>
+                          $
+                          {Intl.NumberFormat("en-US", {
+                            notation: "compact",
+                            maximumFractionDigits: 1,
+                          }).format(obj.circulating_supply)}
+                        </p>
+
+                        <p>
+                          $
+                          {Intl.NumberFormat("en-US", {
+                            notation: "compact",
+                            maximumFractionDigits: 1,
+                          }).format(obj.total_supply)}
+                        </p>
+                      </Styled24VMarketCapTextWrapper>
+                      <SliderWrapper
+                        height="8px"
+                        width="100%"
+                        background="#2172e5"
+                      >
+                        <Slider
+                          width={
+                            (obj.circulating_supply / obj.total_supply) * 100
+                          }
+                          background="white"
+                        ></Slider>
+                      </SliderWrapper>
+                    </DoubleSpan>
+                  </td>
+                  <td></td>
                 </tr>
               ))}
             </tbody>
@@ -91,18 +163,3 @@ class CoinOverview extends React.Component {
 }
 
 export default CoinOverview;
-
-{
-  /*
-
-<div>
-            <h1>Your Overview</h1>
-           <ol>
-               {this.state.list
-               .slice(0, 20)
-               .map((coin) => (<div><li>{coin.name}</li></div>))}
-           </ol>
-           
-            </div>
-*/
-}
