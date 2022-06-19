@@ -82,7 +82,7 @@ class CoinOverview extends React.Component {
                     ).toFixed(2)}
                   </td>
                   <td>
-                    <DoubleSpan height="8px" width="100%" background="#2172e5">
+                    <DoubleSpan>
                       <Styled24VMarketCapTextWrapper
                         width={(obj.total_volume / obj.market_cap) * 100}
                         background={"white"}

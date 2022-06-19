@@ -18,11 +18,11 @@ export const GlobalStyles = createGlobalStyle`
 `;
 
 export const lightTheme = {
-  body: "#fff",
+  body: "#fcfcfc",
   text: "#121212",
 };
 
 export const darkTheme = {
-  body: "#121212",
+  body: "#1f2128",
   text: "#fff",
 };
