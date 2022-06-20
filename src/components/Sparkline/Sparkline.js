@@ -1,21 +1,20 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Line } from "react-chartjs-2";
-import { Chart as ChartJS, LineElement } from "chart.js/auto";
-import { Chart } from "react-chartjs-2";
-//import faker from "faker";
 
-const LineChart = () => {
-  const [chart, setChart] = useState();
+const Sparkline = () => {
+  const [chartData, setChartData] = useState([]);
+  const [chartLabels, setChartLabels] = useState([]);
 
   const getBitcoinData = async () => {
     try {
       const { data } = await axios(
-        "https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=180&interval=daily"
+        "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=50&page=1&sparkline=true&price_change_percentage=1h%2C24h%2C7d"
       );
-      const dates = data.prices;
-
-      setChart(dates);
+      const chartData = data.prices.map((el) => el[1]);
+      const chartLabels = data.prices.map((el) => new Date(el[0]).getDate());
+      setChartData(chartData);
+      setChartLabels(chartLabels);
     } catch (err) {
       console.log(err);
     }
@@ -25,32 +24,18 @@ const LineChart = () => {
     getBitcoinData();
   }, []);
 
-  const dataLabels = chart?.map((el) => {
-    const date = new Date(el[0]);
-    let day = date.getDate().toString();
-    let month = (date.getMonth() + 1).toString();
-    if (day.length === 1) {
-      day = "0" + day;
-    }
-    if (month.length === 1) {
-      month = "0" + month;
-    }
-    return `${month}-${day}-${date.getFullYear()}`;
-  });
-
   return (
     <Line
       data={{
-        labels: dataLabels,
+        labels: chartLabels,
         datasets: [
           {
             label: "BTC",
-            backgroundColor: "rgba(0,0,255,0.3)",
+            backgroundColor: "#2550ea",
             borderColor: "#2550ea",
-            fill: true,
             color: "#2550ea",
             showLine: true,
-            data: chart?.map((el) => el[1]),
+            data: chartData,
             pointRadius: 0,
           },
         ],
@@ -62,6 +47,11 @@ const LineChart = () => {
         interaction: {
           mode: "index",
           intersect: false,
+        },
+        plugins: {
+          legend: {
+            display: false,
+          },
         },
         scales: {
           y: {
@@ -87,9 +77,6 @@ const LineChart = () => {
               font: {
                 size: 9,
               },
-              callback: function (value, index) {
-                return dataLabels[index].slice(3, 5);
-              },
             },
           },
         },
@@ -98,4 +85,4 @@ const LineChart = () => {
   );
 };
 
-export default LineChart;
+export default Sparkline;
