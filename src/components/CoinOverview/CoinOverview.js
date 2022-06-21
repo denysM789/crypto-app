@@ -57,34 +57,34 @@ class CoinOverview extends React.Component {
               </tr>
             </StyledTHead>
             <tbody className="space-x-4">
-              {list.map((obj, index) => (
+              {list.map((coin, index) => (
                 <tr>
                   <td>{index + 1}</td>
                   <td className="flex pl-2 pr-4">
                     <img
                       className="object-scale-down h-8 w-8 pr-3 pb-2"
-                      src={obj.image}
+                      src={coin.image}
                       alt=""
                     />{" "}
-                    {obj.name} ({obj.symbol.toUpperCase()})
+                    {coin.name} ({coin.symbol.toUpperCase()})
                   </td>
                   <td>
                     {Math.round(
-                      obj.price_change_percentage_1h_in_currency
+                      coin.price_change_percentage_1h_in_currency
                     ).toFixed(2)}
                   </td>
                   <td>
-                    {Math.round(obj.price_change_percentage_24h).toFixed(2)}
+                    {Math.round(coin.price_change_percentage_24h).toFixed(2)}
                   </td>
                   <td>
                     {Math.round(
-                      obj.price_change_percentage_7d_in_currency
+                      coin.price_change_percentage_7d_in_currency
                     ).toFixed(2)}
                   </td>
                   <td>
                     <DoubleSpan>
                       <Styled24VMarketCapTextWrapper
-                        width={(obj.total_volume / obj.market_cap) * 100}
+                        width={(coin.total_volume / coin.market_cap) * 100}
                         background={"white"}
                       >
                         <p>
@@ -92,7 +92,7 @@ class CoinOverview extends React.Component {
                           {Intl.NumberFormat("en-US", {
                             notation: "compact",
                             maximumFractionDigits: 1,
-                          }).format(obj.total_volume)}
+                          }).format(coin.total_volume)}
                         </p>
 
                         <p>
@@ -100,7 +100,7 @@ class CoinOverview extends React.Component {
                           {Intl.NumberFormat("en-US", {
                             notation: "compact",
                             maximumFractionDigits: 1,
-                          }).format(obj.market_cap)}
+                          }).format(coin.market_cap)}
                         </p>
                       </Styled24VMarketCapTextWrapper>
                       <SliderWrapper
@@ -109,7 +109,7 @@ class CoinOverview extends React.Component {
                         background="#2172e5"
                       >
                         <Slider
-                          width={(obj.total_volume / obj.market_cap) * 100}
+                          width={(coin.total_volume / coin.market_cap) * 100}
                           background="white"
                         ></Slider>
                       </SliderWrapper>
@@ -118,7 +118,7 @@ class CoinOverview extends React.Component {
                   <td>
                     <DoubleSpan height="8px" width="100%" background="#2172e5">
                       <Styled24VMarketCapTextWrapper
-                        width={(obj.total_volume / obj.market_cap) * 100}
+                        width={(coin.total_volume / coin.market_cap) * 100}
                         background={"white"}
                       >
                         <p>
@@ -126,7 +126,7 @@ class CoinOverview extends React.Component {
                           {Intl.NumberFormat("en-US", {
                             notation: "compact",
                             maximumFractionDigits: 1,
-                          }).format(obj.circulating_supply)}
+                          }).format(coin.circulating_supply)}
                         </p>
 
                         <p>
@@ -134,7 +134,7 @@ class CoinOverview extends React.Component {
                           {Intl.NumberFormat("en-US", {
                             notation: "compact",
                             maximumFractionDigits: 1,
-                          }).format(obj.total_supply)}
+                          }).format(coin.total_supply)}
                         </p>
                       </Styled24VMarketCapTextWrapper>
                       <SliderWrapper
@@ -144,14 +144,19 @@ class CoinOverview extends React.Component {
                       >
                         <Slider
                           width={
-                            (obj.circulating_supply / obj.total_supply) * 100
+                            (coin.circulating_supply / coin.total_supply) * 100
                           }
                           background="white"
                         ></Slider>
                       </SliderWrapper>
                     </DoubleSpan>
                   </td>
-                  <td></td>
+                  <td>
+                    <Sparkline
+                      data={coin.sparkline_in_7d}
+                      last7d={coin.price_change_percentage_7d_in_currency}
+                    ></Sparkline>
+                  </td>
                 </tr>
               ))}
             </tbody>
