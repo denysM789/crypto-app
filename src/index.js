@@ -7,6 +7,8 @@ import { useDarkMode } from "hooks/useDarkMode";
 
 export const ThemeContext = React.createContext();
 
+export const CurrencyContext = React.createContext();
+
 const ThemeSwitcherProvider = ({ children }) => {
   const [theme, toggleTheme] = useDarkMode();
 

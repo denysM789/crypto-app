@@ -1,12 +1,22 @@
 import React from "react";
 import axios from "axios";
-import { render } from "@testing-library/react";
-import Coin from "components/Coin/Coin";
 import {
-  CoinLogo,
-  StyledContainer,
-  StyledTHead,
-  StyledTable,
+  OutsideWrapper,
+  HeaderRow,
+  Wrapper,
+  ChangeSpan,
+  TokenSpan,
+  Icon,
+  THNum,
+  THName,
+  THPrice,
+  TH1h,
+  TH24h,
+  TH7d,
+  TH24VolMarCap,
+  THCircTotSup,
+  THLast7d,
+  TableRowsWrapper,
   Styled24VMarketCapTextWrapper,
   DoubleSpan,
   SliderWrapper,
@@ -14,6 +24,19 @@ import {
 } from "./CoinOverview.styles";
 import "./styles.css";
 import Sparkline from "components/Sparkline/Sparkline";
+import { UpArrow, DownArrow } from "styles/Arrows";
+import {
+  CoinTableTitle,
+  CoinTableRowText,
+  CoinTableRowTextShrink,
+} from "styles/Fonts";
+
+import {
+  addCommas,
+  addCommasWithDecimals,
+  formatLargeNumber,
+  formatPercentage,
+} from "../../utils";
 
 class CoinOverview extends React.Component {
   state = {
@@ -40,68 +63,117 @@ class CoinOverview extends React.Component {
     const list = this.state.list;
 
     return (
-      <div className="p-8">
+      <div>
         <h3>Your Overview</h3>
-        <StyledContainer>
-          <StyledTable>
-            <StyledTHead>
-              <tr className="space-x-4">
-                <th>#</th>
-                <th>Name</th>
-                <th>1h%</th>
-                <th>24h%</th>
-                <th>7d%</th>
-                <th>24h Volume/Market Cap</th>
-                <th>Circulating/Total Supply</th>
-                <th>Last 7d</th>
+        <OutsideWrapper>
+          <Wrapper>
+            <HeaderRow>
+              <tr>
+                <THNum>
+                  <CoinTableTitle>#</CoinTableTitle>
+                </THNum>
+                <THName>
+                  <CoinTableTitle>Name</CoinTableTitle>
+                </THName>
+                <THPrice>
+                  <CoinTableTitle>Price</CoinTableTitle>
+                </THPrice>
+                <TH1h>
+                  <CoinTableTitle>1h%</CoinTableTitle>
+                </TH1h>
+                <TH24h>
+                  <CoinTableTitle>24h%</CoinTableTitle>
+                </TH24h>
+                <TH7d>
+                  <CoinTableTitle>7d%</CoinTableTitle>
+                </TH7d>
+                <TH24VolMarCap>
+                  <CoinTableTitle>24h Volume/Market Cap</CoinTableTitle>
+                </TH24VolMarCap>
+                <THCircTotSup>
+                  <CoinTableTitle>Circulating/Total Supply</CoinTableTitle>
+                </THCircTotSup>
+                <THLast7d>
+                  <CoinTableTitle>Last 7d</CoinTableTitle>
+                </THLast7d>
               </tr>
-            </StyledTHead>
-            <tbody className="space-x-4">
-              {list.map((obj, index) => (
+            </HeaderRow>
+            <TableRowsWrapper>
+              {list.map((coin, index) => (
                 <tr>
-                  <td>{index + 1}</td>
-                  <td className="flex pl-2 pr-4">
-                    <img
-                      className="object-scale-down h-8 w-8 pr-3 pb-2"
-                      src={obj.image}
-                      alt=""
-                    />{" "}
-                    {obj.name} ({obj.symbol.toUpperCase()})
+                  <td>
+                    <CoinTableRowText>{index + 1}</CoinTableRowText>
                   </td>
                   <td>
-                    {Math.round(
-                      obj.price_change_percentage_1h_in_currency
-                    ).toFixed(2)}
+                    <TokenSpan>
+                      <Icon src={coin.image} alt="Coin-Image" />
+                      <CoinTableRowText>
+                        {coin.name} ({coin.symbol.toUpperCase()})
+                      </CoinTableRowText>
+                    </TokenSpan>
+                  </td>
+
+                  <td>
+                    <CoinTableRowText>
+                      $
+                      {coin.current_price < 10
+                        ? addCommasWithDecimals(coin.current_price)
+                        : addCommas(coin.current_price)}
+                    </CoinTableRowText>
                   </td>
                   <td>
-                    {Math.round(obj.price_change_percentage_24h).toFixed(2)}
+                    <ChangeSpan>
+                      {coin.price_change_percentage_1h_in_currency > 0 ? (
+                        <UpArrow />
+                      ) : (
+                        <DownArrow />
+                      )}
+                      <CoinTableRowText>
+                        {formatPercentage(
+                          coin.price_change_percentage_1h_in_currency
+                        )}
+                      </CoinTableRowText>
+                    </ChangeSpan>
                   </td>
                   <td>
-                    {Math.round(
-                      obj.price_change_percentage_7d_in_currency
-                    ).toFixed(2)}
+                    <ChangeSpan>
+                      {coin.price_change_percentage_24h > 0 ? (
+                        <UpArrow />
+                      ) : (
+                        <DownArrow />
+                      )}
+                      <CoinTableRowText>
+                        {formatPercentage(coin.price_change_percentage_24h)}
+                      </CoinTableRowText>
+                    </ChangeSpan>
+                  </td>
+                  <td>
+                    <ChangeSpan>
+                      {coin.price_change_percentage_7d_in_currency > 0 ? (
+                        <UpArrow />
+                      ) : (
+                        <DownArrow />
+                      )}
+                      <CoinTableRowText>
+                        {formatPercentage(
+                          coin.price_change_percentage_7d_in_currency
+                        )}
+                      </CoinTableRowText>
+                    </ChangeSpan>
                   </td>
                   <td>
                     <DoubleSpan>
                       <Styled24VMarketCapTextWrapper
-                        width={(obj.total_volume / obj.market_cap) * 100}
+                        width={(coin.total_volume / coin.market_cap) * 100}
                         background={"white"}
                       >
-                        <p>
-                          $
-                          {Intl.NumberFormat("en-US", {
-                            notation: "compact",
-                            maximumFractionDigits: 1,
-                          }).format(obj.total_volume)}
-                        </p>
+                        <CoinTableRowTextShrink>
+                          ${formatLargeNumber(coin.total_volume)}
+                        </CoinTableRowTextShrink>
 
-                        <p>
-                          $
-                          {Intl.NumberFormat("en-US", {
-                            notation: "compact",
-                            maximumFractionDigits: 1,
-                          }).format(obj.market_cap)}
-                        </p>
+                        <CoinTableRowTextShrink>
+                          ${formatLargeNumber(coin.market_cap)}
+                        </CoinTableRowTextShrink>
                       </Styled24VMarketCapTextWrapper>
                       <SliderWrapper
                         height="8px"
@@ -109,7 +181,7 @@ class CoinOverview extends React.Component {
                         background="#2172e5"
                       >
                         <Slider
-                          width={(obj.total_volume / obj.market_cap) * 100}
+                          width={(coin.total_volume / coin.market_cap) * 100}
                           background="white"
                         ></Slider>
                       </SliderWrapper>
@@ -118,24 +190,16 @@ class CoinOverview extends React.Component {
                   <td>
                     <DoubleSpan height="8px" width="100%" background="#2172e5">
                       <Styled24VMarketCapTextWrapper
-                        width={(obj.total_volume / obj.market_cap) * 100}
+                        width={(coin.total_volume / coin.market_cap) * 100}
                         background={"white"}
                       >
-                        <p>
-                          $
-                          {Intl.NumberFormat("en-US", {
-                            notation: "compact",
-                            maximumFractionDigits: 1,
-                          }).format(obj.circulating_supply)}
-                        </p>
+                        <CoinTableRowTextShrink>
+                          ${formatLargeNumber(coin.circulating_supply)}
+                        </CoinTableRowTextShrink>
 
-                        <p>
-                          $
-                          {Intl.NumberFormat("en-US", {
-                            notation: "compact",
-                            maximumFractionDigits: 1,
-                          }).format(obj.total_supply)}
-                        </p>
+                        <CoinTableRowTextShrink>
+                          ${formatLargeNumber(coin.total_supply)}
+                        </CoinTableRowTextShrink>
                       </Styled24VMarketCapTextWrapper>
                       <SliderWrapper
                         height="8px"
@@ -144,19 +208,24 @@ class CoinOverview extends React.Component {
                       >
                         <Slider
                           width={
-                            (obj.circulating_supply / obj.total_supply) * 100
+                            (coin.circulating_supply / coin.total_supply) * 100
                           }
                           background="white"
                         ></Slider>
                       </SliderWrapper>
                     </DoubleSpan>
                   </td>
-                  <td></td>
+                  <td>
+                    <Sparkline
+                      data={coin.sparkline_in_7d}
+                      last7d={coin.price_change_percentage_7d_in_currency}
+                    ></Sparkline>
+                  </td>
                 </tr>
               ))}
-            </tbody>
-          </StyledTable>
-        </StyledContainer>
+            </TableRowsWrapper>
+          </Wrapper>
+        </OutsideWrapper>
       </div>
     );
   }

@@ -58,6 +58,11 @@ const LineChart = () => {
       height={200}
       width={150}
       options={{
+        plugins: {
+          legend: {
+            display: false,
+          },
+        },
         maintainAspectRatio: false,
         interaction: {
           mode: "index",
