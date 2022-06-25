@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { CoinList, CoinPage, Portfolio } from "pages";
 import Navbar from "./components/Navbar/Navbar";

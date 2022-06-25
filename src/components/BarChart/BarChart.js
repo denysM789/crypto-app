@@ -43,7 +43,7 @@ const BarChart = () => {
         datasets: [
           {
             label: "Volume 24h",
-            backgroundColor: "#1ad761",
+            backgroundColor: "#00ff5f",
             data: chart?.map((el) => el[1]),
           },
         ],
