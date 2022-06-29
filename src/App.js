@@ -5,10 +5,11 @@ import Navbar from "./components/Navbar/Navbar";
 import { ThemeProvider } from "styled-components";
 import { GlobalStyles } from "globalStyles";
 import { lightTheme, darkTheme } from "globalStyles";
-import { ThemeContext } from "./index";
+import { CurrencyContext, ThemeContext } from "./index";
 
 export default function App() {
   const { theme } = useContext(ThemeContext);
+  const { currency } = useContext(CurrencyContext);
 
   return (
     <ThemeProvider theme={theme === "light" ? lightTheme : darkTheme}>

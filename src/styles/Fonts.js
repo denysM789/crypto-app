@@ -19,3 +19,9 @@ export const CoinTableRowTextShrink = styled.p`
   font-weight: regular;
   line-height: 0;
 `;
+
+export const NavLinkStyle = styled.h2`
+  font-size: 23px;
+  font-weight: 800;
+  line-height: 0px;
+`;

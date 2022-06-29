@@ -2,11 +2,10 @@ import styled from "styled-components";
 
 export const OutsideWrapper = styled.div`
   text-align: left;
-
   height: 72px;
   border-radius: 10px;
   display: block;
-  width: 1300px;
+  width: 1713px;
 `;
 
 export const Wrapper = styled.table`
