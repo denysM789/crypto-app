@@ -1,5 +1,30 @@
 import styled from "styled-components";
 
+export const Wrapper = styled.header`
+  color: ${(props) => props.theme.color};
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+`;
+
+export const Navigation = styled.div`
+  height: 86px;
+  width: 100%;
+  background: ${(props) => props.theme.card.background};
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+export const NavLinkWrapper = styled.div`
+  padding: 8px 32px;
+  border-radius: 10px;
+  background: ${(props) => props.theme.card.active};
+  :hover {
+    cursor: pointer;
+  }
+`;
+
 export const NavbarLeft = styled.ul`
   list-style: none;
   display: flex;
@@ -18,22 +43,4 @@ export const NavbarRight = styled.ul`
   & a {
     color: black;
   }
-`;
-
-export const Container = styled.div`
-  display: flex;
-  justify-content: space-between;
-  padding-top: 1.0625rem;
-  padding-left: 1.25rem;
-  padding-right: 1.25rem;
-`;
-
-export const ToggleWrapper = styled.div`
-  display: grid;
-  place-items: center;
-  -webkit-box-align: center;
-  width: 54px;
-  height: 52px;
-  border-radius: 10px;
-  background: rgb(247, 247, 247);
 `;

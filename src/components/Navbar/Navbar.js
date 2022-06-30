@@ -1,36 +1,50 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import DropdownCurrencies from "components/DropdownCurrencies/Dropdown/DropdownCurrencies";
 import Searchbar from "components/Searchbar";
 import { Toggle } from "components/Toggle/Toggle";
 import { Link } from "react-router-dom";
-import { NavbarLeft, NavbarRight, Container } from "./Navbar.styles";
+import {
+  NavbarRight,
+  NavbarLeft,
+  Wrapper,
+  NavLinkWrapper,
+  Navigation,
+} from "./Navbar.styles";
 import { ThemeContext } from "../../index";
+//import { currencies } from "../../utils";
+import { NavLinkStyle } from "styles/Fonts";
 
 const Navbar = () => {
-  const currencies = ["GBP", "EUR", "BTC", "ETH"];
   const { theme, toggleTheme } = useContext(ThemeContext);
-
-  const [currency, setCurrency] = useState("USD");
+  const [activeCurrency, setActiveCurrency] = useState([]);
 
   return (
-    <Container>
-      <div className="flex space-x-4 list-none pl-8 pt-4">
-        <li>
-          <Link to="/">Coins</Link>
-        </li>
-        <li>
-          <Link to="/portfolio">Portfolio</Link>
-        </li>
-      </div>
+    <Wrapper>
+      <Navigation>
+        <NavbarLeft>
+          <Link to="/">
+            <NavLinkWrapper>
+              <NavLinkStyle>Coins</NavLinkStyle>
+            </NavLinkWrapper>
+          </Link>
 
-      <NavbarRight>
-        <div className="flex space-x-4 list-none pl-8 pt-4">
+          <Link to="/portfolio">
+            <NavLinkWrapper>
+              <NavLinkStyle>Portfolio</NavLinkStyle>
+            </NavLinkWrapper>
+          </Link>
+        </NavbarLeft>
+
+        <NavbarRight>
           <Searchbar />
-          <DropdownCurrencies currency={currency} setCurrency={setCurrency} />
+          <DropdownCurrencies
+            currency={activeCurrency}
+            setCurrency={setActiveCurrency}
+          />
           <Toggle theme={theme} toggleTheme={toggleTheme} />
-        </div>
-      </NavbarRight>
-    </Container>
+        </NavbarRight>
+      </Navigation>
+    </Wrapper>
   );
 };
 

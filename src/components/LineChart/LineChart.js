@@ -3,6 +3,7 @@ import axios from "axios";
 import { Line } from "react-chartjs-2";
 import { Chart as ChartJS, LineElement } from "chart.js/auto";
 import { Chart } from "react-chartjs-2";
+import { Wrapper } from "./LineChart.styles";
 //import faker from "faker";
 
 const LineChart = () => {
@@ -39,67 +40,69 @@ const LineChart = () => {
   });
 
   return (
-    <Line
-      data={{
-        labels: dataLabels,
-        datasets: [
-          {
-            label: "BTC",
-            backgroundColor: "rgba(0,0,255,0.3)",
-            borderColor: "#2550ea",
-            fill: true,
-            color: "#2550ea",
-            showLine: true,
-            data: chart?.map((el) => el[1]),
-            pointRadius: 0,
-          },
-        ],
-      }}
-      height={200}
-      width={150}
-      options={{
-        plugins: {
-          legend: {
-            display: false,
-          },
-        },
-        maintainAspectRatio: false,
-        interaction: {
-          mode: "index",
-          intersect: false,
-        },
-        scales: {
-          y: {
-            ticks: { display: false, beginAtZero: true, maxTicksLimit: 5 },
-            grid: {
-              drawOnChartArea: false,
-              drawTicks: false,
-              drawBorder: false,
+    <Wrapper>
+      <Line
+        data={{
+          labels: dataLabels,
+          datasets: [
+            {
+              label: "BTC",
+              backgroundColor: "rgba(0,0,255,0.3)",
+              borderColor: "#2550ea",
+              fill: true,
+              color: "#2550ea",
+              showLine: true,
+              data: chart?.map((el) => el[1]),
+              pointRadius: 0,
+            },
+          ],
+        }}
+        height={200}
+        width={150}
+        options={{
+          plugins: {
+            legend: {
+              display: false,
             },
           },
-          x: {
-            grid: {
-              drawOnChartArea: false,
-              drawTicks: false,
-              drawBorder: false,
-            },
-            ticks: {
-              align: "start",
-              source: "auto",
-              autoSkip: true,
-              maxRotation: 0,
-              maxTicksLimit: 7,
-              font: {
-                size: 9,
-              },
-              callback: function (value, index) {
-                return dataLabels[index].slice(3, 5);
+          maintainAspectRatio: false,
+          interaction: {
+            mode: "index",
+            intersect: false,
+          },
+          scales: {
+            y: {
+              ticks: { display: false, beginAtZero: true, maxTicksLimit: 5 },
+              grid: {
+                drawOnChartArea: false,
+                drawTicks: false,
+                drawBorder: false,
               },
             },
+            x: {
+              grid: {
+                drawOnChartArea: false,
+                drawTicks: false,
+                drawBorder: false,
+              },
+              ticks: {
+                align: "start",
+                source: "auto",
+                autoSkip: true,
+                maxRotation: 0,
+                maxTicksLimit: 7,
+                font: {
+                  size: 9,
+                },
+                callback: function (value, index) {
+                  return dataLabels[index].slice(3, 5);
+                },
+              },
+            },
           },
-        },
-      }}
-    />
+        }}
+      />
+    </Wrapper>
   );
 };
 

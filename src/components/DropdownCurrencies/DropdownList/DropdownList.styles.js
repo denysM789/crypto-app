@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 
 export const List = styled(motion.ul)`
     position: absolute;
-    background-color: #fcfcfc;
+    background-color: ${(props) => props.theme.card.active};
   width: 108px;
   border-radius: 10px;
   top: 66px;
@@ -18,14 +18,26 @@ export const List = styled(motion.ul)`
 export const ListItem = styled.li`
   display: flex;
   align-items: center;
-  background-color: #fcfcfc;
+  background-color: ${(props) => props.theme.card.active};
   border-radius: 10px;
   padding: ${({ padding }) => (padding ? padding : "6px")};
   cursor: ${({ noPointer }) => (noPointer ? "auto" : "pointer")};
 
   :hover {
-    background-color: white;
+    background-color: ${(props) => props.theme.card.background};
   }
 `;
 
 export const ListItemsWrapper = styled.div``;
+
+export const Icon = styled.div`
+  color: ${(props) => props.theme.money.green};
+  display: grid;
+  justify-items: center;
+  align-content: center;
+  margin-right: 10px;
+  height: 26px;
+  width: 26px;
+  border-radius: 50%;
+  background: ${(props) => props.theme.money.background};
+`;

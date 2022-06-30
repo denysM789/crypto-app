@@ -15,14 +15,39 @@ export const GlobalStyles = createGlobalStyle`
     margin-inline-end: 0px;
 }
 
+card {
+  background: ${({ theme }) => theme.card.background};
+  active: ${({ theme }) => theme.card.active};
+}
+
 `;
 
 export const lightTheme = {
   body: "#fcfcfc",
-  text: "#121212",
+  text: "#191b1f",
+  card: {
+    background: "#ffffff",
+    active: "#fcfcfc",
+  },
+  money: {
+    green: "#00ff5f",
+    red: "#FE1040",
+    blue: "#2172e5",
+    background: "#ffffff",
+  },
 };
 
 export const darkTheme = {
   body: "#1f2128",
-  text: "#fff",
+  text: "#ffffff",
+  card: {
+    background: "#191b1f",
+    active: "#2c2f36",
+  },
+  money: {
+    green: "#00ff5f",
+    red: "#FE1040",
+    blue: "#2172e5",
+    background: "#191B1F",
+  },
 };
