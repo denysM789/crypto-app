@@ -94,6 +94,7 @@ const CoinOverview = () => {
             </THLast7d>
           </tr>
         </HeaderRow>
+
         <TableRowsWrapper>
           {list.map((coin, index) => (
             <tr>

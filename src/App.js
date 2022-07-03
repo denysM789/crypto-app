@@ -5,11 +5,11 @@ import Navbar from "./components/Navbar/Navbar";
 import { ThemeProvider } from "styled-components";
 import { GlobalStyles } from "globalStyles";
 import { lightTheme, darkTheme } from "globalStyles";
-import { CurrencyContext, ThemeContext } from "./index";
+import { ThemeContext } from "./index";
+import ScrollToTop from "components/ScrollToTop/ScrollToTop";
 
 export default function App() {
   const { theme } = useContext(ThemeContext);
-  const { currency } = useContext(CurrencyContext);
 
   return (
     <ThemeProvider theme={theme === "light" ? lightTheme : darkTheme}>
@@ -21,6 +21,7 @@ export default function App() {
           <Route exact path="/portfolio" component={Portfolio}></Route>
           <Route exact path="/" component={CoinList}></Route>
         </Switch>
+        <ScrollToTop />
       </Router>
     </ThemeProvider>
   );

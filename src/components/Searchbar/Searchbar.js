@@ -26,7 +26,7 @@ class Searchbar extends React.Component {
           value={this.state.value}
           placeholder="Search..."
           onChange={this.handleChange}
-        ></Input>
+        />
       </Wrapper>
     );
   }

@@ -1,23 +1,28 @@
 import styled from "styled-components";
 
 export const OutsideWrapper = styled.div`
+  background: ${(props) => props.theme.card.background};
   text-align: left;
-  height: 72px;
   border-radius: 10px;
   display: block;
-  width: 1713px;
+  max-width: 1713px;
+  width: 100%;
+  padding: 15px;
 `;
 
 export const Wrapper = styled.table`
   justify-content: space-between;
   position: relative;
   padding: 17px 17px 17px 17px;
+  max-width: 1713px;
+  table-layout: fixed;
   width: 100%;
   display: block;
 `;
 
 export const HeaderRow = styled.thead`
   text-align: left;
+  max-width: 1713px;
   width: 100%;
   tr {
     width: 100%;

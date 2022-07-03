@@ -2,8 +2,8 @@ import styled from "styled-components";
 import { motion } from "framer-motion";
 
 export const List = styled(motion.ul)`
-    position: absolute;
-    background-color: ${(props) => props.theme.card.active};
+  position: absolute;
+  background-color: ${(props) => props.theme.card.active};
   width: 108px;
   border-radius: 10px;
   top: 66px;

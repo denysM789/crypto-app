@@ -1,9 +1,7 @@
 import styled from "styled-components";
 import { motion } from "framer-motion";
 
-export const Wrapper = styled(motion.div)`
-  margin-top: 25px;
-`;
+export const Wrapper = styled(motion.div)``;
 
 export const ContentWrapper = styled.div`
   display: grid;
@@ -12,22 +10,27 @@ export const ContentWrapper = styled.div`
 `;
 
 export const ChartWrapper = styled.div`
-  display: grid;
-  grid-auto-flow: column;
-  align-items: center;
+  display: flex;
   justify-items: space-between;
   gap: 45px;
-  width: 1300px;
+  max-width: 1300px;
+  width: 100%;
 `;
 
 export const CoinListWrapper = styled.div`
   justify-content: space-between;
-  width: 1300px;
+  max-width: 1300px;
+  width: 100%;
   margin: 0 auto;
 `;
 
 export const InfoBarWrapper = styled.div`
+  background: ${(props) => props.theme.card.background};
+  justify-items: space-between;j
   display: flex;
-  justify-content: space-between;
-  width: 50%;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  max-width: 1300px;
+  width: 100%;
+  
 `;
