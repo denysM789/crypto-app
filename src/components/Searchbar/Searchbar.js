@@ -21,7 +21,10 @@ class Searchbar extends React.Component {
   render() {
     return (
       <Wrapper onSubmit={this.handleSubmit}>
-        <img src="https://crypto-tracker-five-delta.vercel.app/static/media/search.62b80724.svg" />
+        <img
+          src="https://crypto-tracker-five-delta.vercel.app/static/media/search.62b80724.svg"
+          alt=""
+        />
         <Input
           value={this.state.value}
           placeholder="Search..."

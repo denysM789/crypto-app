@@ -1,6 +1,6 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { CoinList, CoinPage, Portfolio } from "pages";
+import { CoinList, Coin, Portfolio } from "pages";
 import Navbar from "./components/Navbar/Navbar";
 import { ThemeProvider } from "styled-components";
 import { GlobalStyles } from "globalStyles";
@@ -17,7 +17,11 @@ export default function App() {
       <Router>
         <Navbar />
         <Switch>
-          <Route exact path="/coin/:coinId" component={CoinPage}></Route>
+          <Route
+            exact
+            path="/coin/:coinId"
+            component={(props) => <Coin {...props} />}
+          ></Route>
           <Route exact path="/portfolio" component={Portfolio}></Route>
           <Route exact path="/" component={CoinList}></Route>
         </Switch>

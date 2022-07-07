@@ -11,6 +11,7 @@ export const Toggle = () => {
           <img
             className="rotate-90"
             src="https://crypto-tracker-five-delta.vercel.app/static/media/scan.0ece46e0.svg"
+            alt=""
           ></img>
         </ToggleWrapper>
       </button>
