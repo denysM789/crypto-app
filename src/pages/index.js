@@ -1,3 +1,3 @@
-export {default as CoinList} from './CoinList';
-export {default as CoinPage} from './CoinPage';
-export {default as Portfolio} from './Portfolio';
+export { default as CoinList } from "./CoinList";
+export { default as Coin } from "./Coin";
+export { default as Portfolio } from "./Portfolio";

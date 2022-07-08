@@ -4,7 +4,6 @@ import { Line } from "react-chartjs-2";
 import { Chart as ChartJS, LineElement } from "chart.js/auto";
 import { Chart } from "react-chartjs-2";
 import { Wrapper } from "./LineChart.styles";
-//import faker from "faker";
 
 const LineChart = () => {
   const [chart, setChart] = useState();

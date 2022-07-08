@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 import {
   OutsideWrapper,
   HeaderRow,
@@ -39,7 +40,7 @@ import {
 } from "../../utils";
 import { CurrencyContext } from "index";
 
-const CoinOverview = () => {
+const CoinOverview = (props) => {
   const [list, setList] = useState([]);
   const { currency } = React.useContext(CurrencyContext);
 
@@ -94,6 +95,7 @@ const CoinOverview = () => {
             </THLast7d>
           </tr>
         </HeaderRow>
+
         <TableRowsWrapper>
           {list.map((coin, index) => (
             <tr>
@@ -103,9 +105,11 @@ const CoinOverview = () => {
               <td>
                 <TokenSpan>
                   <Icon src={coin.image} alt="Coin-Image" />
-                  <CoinTableRowText>
-                    {coin.name} ({coin.symbol.toUpperCase()})
-                  </CoinTableRowText>
+                  <Link to={`/coin/${coin.id}`}>
+                    <CoinTableRowText>
+                      {coin.name} ({coin.symbol.toUpperCase()})
+                    </CoinTableRowText>
+                  </Link>
                 </TokenSpan>
               </td>
 

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useContext, useState } from "react";
 import DropdownCurrencies from "components/DropdownCurrencies/Dropdown/DropdownCurrencies";
 import Searchbar from "components/Searchbar";
 import { Toggle } from "components/Toggle/Toggle";
@@ -11,7 +11,6 @@ import {
   Navigation,
 } from "./Navbar.styles";
 import { ThemeContext } from "../../index";
-//import { currencies } from "../../utils";
 import { NavLinkStyle } from "styles/Fonts";
 
 const Navbar = () => {

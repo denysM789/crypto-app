@@ -2,18 +2,20 @@ import styled from "styled-components";
 
 export const Wrapper = styled.div`
   height: 55px;
-  display: grid;
-  justify-content: center;
+  max-width: 1300px;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  display: flex;
 `;
 
 export const InnerWrapper = styled.div`
   height: 55px;
-  width: 906px;
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom-left-radius: 10px;
-  border-bottom-right-radius: 10px;
+  padding: 15px;
 `;
 
 export const Volume = styled.div`

@@ -1,15 +1,15 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { CoinList, CoinPage, Portfolio } from "pages";
+import { CoinList, Coin, Portfolio } from "pages";
 import Navbar from "./components/Navbar/Navbar";
 import { ThemeProvider } from "styled-components";
 import { GlobalStyles } from "globalStyles";
 import { lightTheme, darkTheme } from "globalStyles";
-import { CurrencyContext, ThemeContext } from "./index";
+import { ThemeContext } from "./index";
+import ScrollToTop from "components/ScrollToTop/ScrollToTop";
 
 export default function App() {
   const { theme } = useContext(ThemeContext);
-  const { currency } = useContext(CurrencyContext);
 
   return (
     <ThemeProvider theme={theme === "light" ? lightTheme : darkTheme}>
@@ -17,10 +17,15 @@ export default function App() {
       <Router>
         <Navbar />
         <Switch>
-          <Route exact path="/coin/:coinId" component={CoinPage}></Route>
+          <Route
+            exact
+            path="/coin/:coinId"
+            component={(props) => <Coin {...props} />}
+          ></Route>
           <Route exact path="/portfolio" component={Portfolio}></Route>
           <Route exact path="/" component={CoinList}></Route>
         </Switch>
+        <ScrollToTop />
       </Router>
     </ThemeProvider>
   );
