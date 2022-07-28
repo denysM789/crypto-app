@@ -55,6 +55,7 @@ import {
   BottomLinkInnerWrapper,
   BottomChartWrapper,
   ToolTipSpan,
+  OuterWrapper,
 } from "./CoinInfo.styles";
 import { CurrencyContext } from "index";
 import { addCommas, formatPercentage } from "../../../utils";
@@ -68,13 +69,12 @@ import {
 } from "components/CoinOverview/CoinOverview.styles";
 
 import { CoinTableRowText } from "styles/Fonts";
-import BottomChart from "../BottomChart/BottomChart";
 import ClipboardButton from "./ClipboardButton/ClipboardButton";
+import DurationSelector from "../DurationSelector/DurationSelector";
 
 const CoinInfo = (props) => {
   const [coin, setCoin] = useState();
   const [marketData, setMarketData] = useState();
-  const [showTooltip, setShowTooltip] = useState(false);
 
   const { currency } = React.useContext(CurrencyContext);
 
@@ -83,6 +83,33 @@ const CoinInfo = (props) => {
   const url3 = coin?.links.blockchain_site[1];
   const url4 = coin?.links.blockchain_site[2];
 
+  const durations = [
+    {
+      length: "1d",
+      isActive: true,
+    },
+    {
+      length: "7d",
+      isActive: false,
+    },
+    {
+      length: "30d",
+      isActive: false,
+    },
+    {
+      length: "90d",
+      isActive: false,
+    },
+    {
+      length: "1y",
+      isActive: false,
+    },
+    {
+      length: "Max",
+      isActive: false,
+    },
+  ];
+
   const getCoinInfo = async () => {
     const activeCoinId = props.coinId.coinId;
     try {
@@ -90,15 +117,13 @@ const CoinInfo = (props) => {
         `https://api.coingecko.com/api/v3/coins/${activeCoinId}?localization=false&tickers=false&market_data=true&community_data=true&developer_data=false&sparkline=false`
       );
       setCoin(data);
-      setMarketData(coin?.market_data);
-      console.log(coin);
+      setMarketData(data?.market_data);
     } catch (err) {
       console.log(err);
     }
   };
 
   useEffect(() => {
-    console.log(currency);
     getCoinInfo();
   }, []);
 
@@ -137,24 +162,14 @@ const CoinInfo = (props) => {
                   <ClipboardButton text={url} />
                 </ClipboardIconWrapper>
               </LinkInnerWrapper>
-              <AnimatePresence>
-                {showTooltip && (
-                  <ToolTipSpan
-                    initial={{ opacity: 1, height: "auto" }}
-                    animate={{ opacity: 1, height: "auto" }}
-                    exit={{ opacity: 0 }}
-                  >
-                    Copied to Clipboard
-                  </ToolTipSpan>
-                )}
-              </AnimatePresence>
             </LinkWrapper>
           </CoinId>
           <PriceDetails>
             <PriceDetailsInnerWrapper>
               <PriceWrapper>
                 <ChartHeaderText>
-                  {currency?.symbol + addCommas(marketData?.current_price.usd)}
+                  {currency?.symbol +
+                    addCommas(marketData?.current_price[currency.abbr])}
                 </ChartHeaderText>
                 <PercentWrapper>
                   {marketData?.priceChangePercentage24hr >= 0 ? (
@@ -246,7 +261,7 @@ const CoinInfo = (props) => {
                     </PortfolioEntryLabelText>
                     <PortfolioEntryText>
                       {currency?.symbol +
-                        addCommas(marketData?.total_volume.usd)}
+                        addCommas(marketData?.total_volume[currency.name])}
                     </PortfolioEntryText>
                   </MarketDetailsLineText>
                 </MarketDetailsLine>
@@ -405,10 +420,8 @@ const CoinInfo = (props) => {
               </BottomLinkInnerWrapper>
             </BottomLinkWrapper>
           </BottomLinksInnerWrapper>
+          <DurationSelector durations={durations} />
         </BottomLinksWrapper>
-        <BottomChartWrapper>
-          <BottomChart />
-        </BottomChartWrapper>
       </Wrapper>
     </OutsideWrapper>
   );
