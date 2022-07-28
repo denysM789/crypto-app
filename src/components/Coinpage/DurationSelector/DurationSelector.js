@@ -7,12 +7,11 @@ import {
 } from "./DurationSelector.styles";
 
 const DurationSelector = (props) => {
-  console.log("from durationpicker", props.durations);
   return (
     <Wrapper>
       {props.durations.map((duration) => (
         <ButtonSpan>
-          <RadioButton type="radio" isSelected={duration.active} />
+          <RadioButton type="radio" isSelected={duration.isActive} />
           <ButtonLabel>{duration.length}</ButtonLabel>
         </ButtonSpan>
       ))}

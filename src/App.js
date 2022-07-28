@@ -17,11 +17,7 @@ export default function App() {
       <Router>
         <Navbar />
         <Switch>
-          <Route
-            exact
-            path="/coin/:coinId"
-            component={(props) => <Coin {...props} />}
-          ></Route>
+          <Route exact path="/coin/:coinId" component={Coin}></Route>
           <Route exact path="/portfolio" component={Portfolio}></Route>
           <Route exact path="/" component={CoinList}></Route>
         </Switch>
