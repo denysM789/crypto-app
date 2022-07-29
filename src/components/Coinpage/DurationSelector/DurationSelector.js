@@ -11,8 +11,12 @@ const DurationSelector = (props) => {
     <Wrapper>
       {props.durations.map((duration) => (
         <ButtonSpan>
-          <RadioButton type="radio" isSelected={duration.isActive} />
-          <ButtonLabel>{duration.length}</ButtonLabel>
+          <RadioButton
+            type="radio"
+            isSelected={duration.isActive}
+            onClick={() => props.onClick(duration)}
+          />
+          <ButtonLabel key={duration.id}>{duration.length}</ButtonLabel>
         </ButtonSpan>
       ))}
     </Wrapper>

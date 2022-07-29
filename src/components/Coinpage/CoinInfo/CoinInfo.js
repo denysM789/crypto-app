@@ -78,36 +78,13 @@ const CoinInfo = (props) => {
 
   const { currency } = React.useContext(CurrencyContext);
 
-  const url = coin?.links.homepage[0];
-  const url2 = coin?.links.blockchain_site[0];
-  const url3 = coin?.links.blockchain_site[1];
-  const url4 = coin?.links.blockchain_site[2];
+  let url, url2, url3, url4;
 
-  const durations = [
-    {
-      length: "1d",
-      isActive: true,
-    },
-    {
-      length: "7d",
-      isActive: false,
-    },
-    {
-      length: "30d",
-      isActive: false,
-    },
-    {
-      length: "90d",
-      isActive: false,
-    },
-    {
-      length: "1y",
-      isActive: false,
-    },
-    {
-      length: "Max",
-      isActive: false,
-    },
+  [url, url2, url3, url4] = [
+    coin?.links.homepage[0],
+    coin?.links.blockchain_site[1],
+    coin?.links.blockchain_site[1],
+    coin?.links.blockchain_site[2],
   ];
 
   const getCoinInfo = async () => {
@@ -420,7 +397,10 @@ const CoinInfo = (props) => {
               </BottomLinkInnerWrapper>
             </BottomLinkWrapper>
           </BottomLinksInnerWrapper>
-          <DurationSelector durations={durations} />
+          <DurationSelector
+            durations={props.durations}
+            onClick={props.onClick}
+          />
         </BottomLinksWrapper>
       </Wrapper>
     </OutsideWrapper>
