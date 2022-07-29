@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react";
-
 import { Line } from "react-chartjs-2";
 import { ChartData, ChartArea } from "chart.js";
 import { Chart as ChartJS, LineElement } from "chart.js/auto";
 import { Chart } from "react-chartjs-2";
-
 import axios from "axios";
 
 import {
@@ -23,7 +21,7 @@ const BottomChart = (props) => {
   const getCoinData = async () => {
     try {
       const { data } = await axios(
-        `https://api.coingecko.com/api/v3/coins/${props.coinId.coinId}/market_chart?vs_currency=usd&days=180&interval=daily`
+        `https://api.coingecko.com/api/v3/coins/${props.coinId.coinId}/market_chart?vs_currency=usd&days=${props.activeDuration}&interval=daily`
       );
       setChart(data?.prices);
     } catch (err) {
@@ -33,7 +31,7 @@ const BottomChart = (props) => {
 
   useEffect(() => {
     getCoinData();
-  }, []);
+  }, [props.activeDuration]);
 
   const dataLabels = chart?.map((el) => {
     const date = new Date(el[0]);
