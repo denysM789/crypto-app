@@ -40,7 +40,7 @@ import {
 } from "../../utils";
 import { CurrencyContext } from "index";
 
-const CoinOverview = (props) => {
+const CoinOverview = () => {
   const [list, setList] = useState([]);
   const { currency } = React.useContext(CurrencyContext);
 
