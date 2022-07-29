@@ -1,16 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Line } from "react-chartjs-2";
-import { ChartData, ChartArea } from "chart.js";
-import { Chart as ChartJS, LineElement } from "chart.js/auto";
-import { Chart } from "react-chartjs-2";
 import axios from "axios";
-
-import {
-  DurationSelectorWrapper,
-  InnerWrapper,
-  ChartWrapper,
-  OuterWrapper,
-} from "./BottomChart.styles";
+import { ChartWrapper } from "./BottomChart.styles";
 
 import useWindowSize from "hooks/useWindowSize";
 

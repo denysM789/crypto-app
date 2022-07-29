@@ -1,7 +1,6 @@
 import axios from "axios";
 
 import React, { useEffect, useState } from "react";
-import { AnimatePresence } from "framer-motion";
 import {
   DescriptionInnerWrapper,
   DescriptionWrapper,
@@ -78,14 +77,8 @@ const CoinInfo = (props) => {
 
   const { currency } = React.useContext(CurrencyContext);
 
-  let url, url2, url3, url4;
-
-  [url, url2, url3, url4] = [
-    coin?.links.homepage[0],
-    coin?.links.blockchain_site[1],
-    coin?.links.blockchain_site[1],
-    coin?.links.blockchain_site[2],
-  ];
+  const url = coin?.links.homepage[0];
+  const [, url2, url3, url4] = coin?.links.blockchain_site || [];
 
   const getCoinInfo = async () => {
     const activeCoinId = props.coinId.coinId;
@@ -95,6 +88,7 @@ const CoinInfo = (props) => {
       );
       setCoin(data);
       setMarketData(data?.market_data);
+      console.log(marketData);
     } catch (err) {
       console.log(err);
     }
@@ -149,13 +143,13 @@ const CoinInfo = (props) => {
                     addCommas(marketData?.current_price[currency.abbr])}
                 </ChartHeaderText>
                 <PercentWrapper>
-                  {marketData?.priceChangePercentage24hr >= 0 ? (
+                  {marketData?.price_change_percentage_24h >= 0 ? (
                     <UpArrow />
                   ) : (
                     <DownArrow />
                   )}
-                  <PriceText price={marketData?.priceChangePercentage24hr}>
-                    {formatPercentage(marketData?.priceChangePercentage24hr)}
+                  <PriceText price={marketData?.price_change_percentage_24h}>
+                    {formatPercentage(marketData?.price_change_percentage_24h)}
                   </PriceText>
                 </PercentWrapper>
               </PriceWrapper>

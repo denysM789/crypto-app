@@ -10,14 +10,6 @@ const ClipboardButton = ({ text }) => {
   const [isClicked, setIsClicked] = useState(false);
 
   const content = <span>Copy to Clipboard</span>;
-  const styles = {
-    height: "10px",
-    width: "30px",
-    textAlign: "center",
-    background: "#f6f6f6",
-    verticalAlign: "middle",
-    border: "5px solid white",
-  };
 
   const handleClick = (e) => {
     e.preventDefault();
