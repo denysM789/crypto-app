@@ -88,7 +88,6 @@ const CoinInfo = (props) => {
       );
       setCoin(data);
       setMarketData(data?.market_data);
-      console.log(marketData);
     } catch (err) {
       console.log(err);
     }

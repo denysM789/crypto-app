@@ -37,7 +37,7 @@ const Coin = (props) => {
     },
     {
       length: "Max",
-      duration: 1000,
+      duration: 5000,
       isActive: false,
     },
   ]);
