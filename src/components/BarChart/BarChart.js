@@ -1,30 +1,19 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import React, { useEffect } from "react";
 import { Bar } from "react-chartjs-2";
-import { Chart as ChartJS, BarElement } from "chart.js/auto";
 import { Wrapper } from "./BarChart.styles";
+import { getBitcoinData } from "store/coinOverview/actions";
+import { useSelector, useDispatch } from "react-redux";
 
 const BarChart = () => {
-  const [chart, setChart] = useState();
+  const chart = useSelector((state) => state.barChartReducer.bitcoinVolumes);
 
-  const getBitcoinData = async () => {
-    try {
-      const { data } = await axios(
-        "https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=180&interval=daily"
-      );
-      const dates = data.total_volumes;
-
-      setChart(dates);
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    getBitcoinData();
+    dispatch(getBitcoinData());
   }, []);
 
-  const dataLabels = chart?.map((el) => {
+  const dataLabels = chart?.total_volumes.map((el) => {
     const date = new Date(el[0]);
     let day = date.getDate().toString();
     let month = (date.getMonth() + 1).toString();
@@ -46,7 +35,7 @@ const BarChart = () => {
             {
               label: "Volume 24h",
               backgroundColor: "#00ff5f",
-              data: chart?.map((el) => el[1]),
+              data: chart.total_volumes.map((el) => el[1]),
             },
           ],
         }}

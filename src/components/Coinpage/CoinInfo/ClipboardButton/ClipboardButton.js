@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import ReactDOM from "react-dom/client";
 import Tooltip from "rc-tooltip";
 import "rc-tooltip/assets/bootstrap_white.css";
 
@@ -9,7 +10,7 @@ import { CheckIconImg, CopyIconImg } from "./ClipboardButton.styles";
 const ClipboardButton = ({ text }) => {
   const [isClicked, setIsClicked] = useState(false);
 
-  const content = <span>Copy to Clipboard</span>;
+  const content = <span>{isClicked ? "Copied" : "Copy to Clipboard"}</span>;
 
   const handleClick = (e) => {
     e.preventDefault();
@@ -20,25 +21,20 @@ const ClipboardButton = ({ text }) => {
     }, 500);
   };
   return (
-    <div>
-      <div>
-        <Tooltip animation="zoom" placement="top" overlay={content}>
-          <a href="#">
-            <button onClick={handleClick} text={text}>
-              {isClicked ? (
-                <a>
-                  <CheckIconImg src={CheckedIcon} />
-                </a>
-              ) : (
-                <a>
-                  <CopyIconImg src={CopyIcon} />
-                </a>
-              )}
-            </button>
-          </a>
-        </Tooltip>
-      </div>
-    </div>
+    <Tooltip
+      animation="zoom"
+      placement="top"
+      overlay={content}
+      //getTooltipContainer={() => ReactDOM.findDOMNode(this.myRef)}
+    >
+      <button onClick={handleClick}>
+        {isClicked ? (
+          <CheckIconImg src={CheckedIcon} />
+        ) : (
+          <CopyIconImg src={CopyIcon} />
+        )}
+      </button>
+    </Tooltip>
   );
 };
 

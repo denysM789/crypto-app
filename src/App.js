@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import { connect } from "react-redux";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { CoinList, Coin, Portfolio } from "pages";
 import Navbar from "./components/Navbar/Navbar";
@@ -7,8 +8,10 @@ import { GlobalStyles } from "globalStyles";
 import { lightTheme, darkTheme } from "globalStyles";
 import { ThemeContext } from "./index";
 import ScrollToTop from "components/ScrollToTop/ScrollToTop";
+import { getAllCoins } from "./store/coinOverview/actions";
+import { getBitcoinData } from "./store/coinOverview/actions";
 
-export default function App() {
+function App() {
   const { theme } = useContext(ThemeContext);
 
   return (
@@ -26,3 +29,11 @@ export default function App() {
     </ThemeProvider>
   );
 }
+const mapStateToProps = (state) => ({});
+
+const mapDispatchToProps = {
+  getAllCoins,
+  getBitcoinData,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

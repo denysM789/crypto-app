@@ -1,31 +1,20 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import React, { useEffect } from "react";
 import { Line } from "react-chartjs-2";
 import { Chart as ChartJS, LineElement } from "chart.js/auto";
 import { Chart } from "react-chartjs-2";
 import { Wrapper } from "./LineChart.styles";
+import { getBitcoinData } from "store/coinOverview/actions";
+import { useSelector, useDispatch } from "react-redux";
 
 const LineChart = () => {
-  const [chart, setChart] = useState();
+  const chart = useSelector((state) => state.lineChartReducer.bitcoinPrices);
 
-  const getBitcoinData = async () => {
-    try {
-      const { data } = await axios(
-        "https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=180&interval=daily"
-      );
-      const dates = data.prices;
-
-      setChart(dates);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
+  const dispatch = useDispatch();
   useEffect(() => {
-    getBitcoinData();
+    dispatch(getBitcoinData());
   }, []);
 
-  const dataLabels = chart?.map((el) => {
+  const dataLabels = chart?.prices.map((el) => {
     const date = new Date(el[0]);
     let day = date.getDate().toString();
     let month = (date.getMonth() + 1).toString();
@@ -51,7 +40,7 @@ const LineChart = () => {
               fill: true,
               color: "#2550ea",
               showLine: true,
-              data: chart?.map((el) => el[1]),
+              data: chart.prices.map((el) => el[1]),
               pointRadius: 0,
             },
           ],

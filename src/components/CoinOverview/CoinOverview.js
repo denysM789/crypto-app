@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import {
   OutsideWrapper,
@@ -39,26 +38,21 @@ import {
   formatPercentage,
 } from "../../utils";
 import { CurrencyContext } from "index";
+import { getAllCoins } from "store/coinOverview/actions";
+import { useSelector, useDispatch } from "react-redux";
 
 const CoinOverview = () => {
-  const [list, setList] = useState([]);
+  const coins = useSelector((state) => state.coinOverviewReducer.coinsData);
+
   const { currency } = React.useContext(CurrencyContext);
 
-  const getAllCoins = async () => {
-    const userCurrency = currency?.abbr;
-    try {
-      const { data } = await axios(
-        `https://api.coingecko.com/api/v3/coins/markets?vs_currency=${userCurrency}&order=market_cap_desc&per_page=50&page=1&sparkline=true&price_change_percentage=1h%2C24h%2C7d`
-      );
-      setList(data);
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    getAllCoins();
-  }, [currency]);
+    if (currency?.abbr) {
+      dispatch(getAllCoins(currency?.abbr));
+    }
+  }, [currency?.abbr]);
 
   return (
     <OutsideWrapper>
@@ -97,7 +91,7 @@ const CoinOverview = () => {
         </HeaderRow>
 
         <TableRowsWrapper>
-          {list.map((coin, index) => (
+          {coins.map((coin, index) => (
             <tr>
               <td>
                 <CoinTableRowText>{index + 1}</CoinTableRowText>
@@ -115,7 +109,7 @@ const CoinOverview = () => {
 
               <td>
                 <CoinTableRowText>
-                  {currency.symbol}
+                  {currency?.symbol}
                   {coin.current_price < 10
                     ? addCommasWithDecimals(coin.current_price)
                     : addCommas(coin.current_price)}

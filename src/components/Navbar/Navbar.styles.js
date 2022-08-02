@@ -19,6 +19,11 @@ export const Navigation = styled.div`
 export const NavLinkWrapper = styled.div`
   padding: 8px 32px;
   border-radius: 10px;
+  height: 50px;
+  align-items: center;
+  position: relative;
+  display: flex;
+  color: ${(props) => props.theme.text};
   background: ${(props) => props.theme.card.active};
   :hover {
     cursor: pointer;
