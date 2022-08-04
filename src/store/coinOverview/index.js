@@ -13,7 +13,7 @@ export const GET_CHARTDATA_PENDING = "GET_CHARTDATA_PENDING";
 export const GET_CHARTDATA_SUCCESS = "GET_CHARTDATA_SUCCESS";
 export const GET_CHARTDATA_ERROR = "GET_CHARTDATA_ERROR";
 
-export function coinOverviewReducer(state = initialState, action) {
+export function coinOverview(state = initialState, action) {
   switch (action.type) {
     case GET_ALLCOINS_PENDING:
       return {
@@ -25,19 +25,20 @@ export function coinOverviewReducer(state = initialState, action) {
       return {
         ...state,
         coinsData: action.payload,
+        error: false,
         isLoading: false,
       };
     case GET_ALLCOINS_ERROR:
       return {
         ...state,
-        error: false,
+        error: true,
         isLoading: true,
       };
     default:
       return state;
   }
 }
-export function lineChartReducer(state = initialState, action) {
+export function lineChart(state = initialState, action) {
   switch (action.type) {
     case GET_CHARTDATA_PENDING:
       return {
@@ -62,7 +63,7 @@ export function lineChartReducer(state = initialState, action) {
   }
 }
 
-export function barChartReducer(state = initialState, action) {
+export function barChart(state = initialState, action) {
   switch (action.type) {
     case GET_CHARTDATA_PENDING:
       return {

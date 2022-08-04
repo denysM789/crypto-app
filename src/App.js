@@ -1,6 +1,11 @@
 import React, { useContext } from "react";
 import { connect } from "react-redux";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  withRouter,
+} from "react-router-dom";
 import { CoinList, Coin, Portfolio } from "pages";
 import Navbar from "./components/Navbar/Navbar";
 import { ThemeProvider } from "styled-components";
@@ -10,10 +15,10 @@ import { ThemeContext } from "./index";
 import ScrollToTop from "components/ScrollToTop/ScrollToTop";
 import { getAllCoins } from "./store/coinOverview/actions";
 import { getBitcoinData } from "./store/coinOverview/actions";
+import { getCoinInfo } from "./store/coinInfo/actions";
 
-function App() {
+function App(props) {
   const { theme } = useContext(ThemeContext);
-
   return (
     <ThemeProvider theme={theme === "light" ? lightTheme : darkTheme}>
       <GlobalStyles />
@@ -34,6 +39,7 @@ const mapStateToProps = (state) => ({});
 const mapDispatchToProps = {
   getAllCoins,
   getBitcoinData,
+  getCoinInfo,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

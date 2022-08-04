@@ -1,15 +1,14 @@
 import { combineReducers, createStore, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
-import {
-  coinOverviewReducer,
-  lineChartReducer,
-  barChartReducer,
-} from "./coinOverview/index";
+import { coinOverview, lineChart, barChart } from "./coinOverview";
+
+import { coinInfo } from "./coinInfo";
 
 const reducers = combineReducers({
-  coinOverviewReducer,
-  lineChartReducer,
-  barChartReducer,
+  coinOverview,
+  lineChart,
+  barChart,
+  coinInfo,
 });
 
 export const store = createStore(reducers, applyMiddleware(thunk));
