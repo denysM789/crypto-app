@@ -5,7 +5,7 @@ import { getBitcoinData } from "store/coinOverview/actions";
 import { useSelector, useDispatch } from "react-redux";
 
 const BarChart = () => {
-  const chart = useSelector((state) => state.barChartReducer.bitcoinVolumes);
+  const chart = useSelector((state) => state.barChart.bitcoinVolumes);
 
   const dispatch = useDispatch();
 

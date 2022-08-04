@@ -7,7 +7,7 @@ import { getBitcoinData } from "store/coinOverview/actions";
 import { useSelector, useDispatch } from "react-redux";
 
 const LineChart = () => {
-  const chart = useSelector((state) => state.lineChartReducer.bitcoinPrices);
+  const chart = useSelector((state) => state.lineChart.bitcoinPrices);
 
   const dispatch = useDispatch();
   useEffect(() => {

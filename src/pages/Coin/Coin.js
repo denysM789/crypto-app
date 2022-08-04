@@ -8,6 +8,7 @@ import { ContentWrapper } from "./Coin.styles";
 
 const Coin = (props) => {
   const coinId = props.match.params;
+
   const [duration, setDuration] = useState(365);
   const [durations, setDurations] = useState([
     {
