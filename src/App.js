@@ -16,6 +16,7 @@ import ScrollToTop from "components/ScrollToTop/ScrollToTop";
 import { getAllCoins } from "./store/coinOverview/actions";
 import { getBitcoinData } from "./store/coinOverview/actions";
 import { getCoinInfo } from "./store/coinInfo/actions";
+import { getMarketData } from "./store/infoBar/actions";
 
 function App(props) {
   const { theme } = useContext(ThemeContext);
@@ -40,6 +41,7 @@ const mapDispatchToProps = {
   getAllCoins,
   getBitcoinData,
   getCoinInfo,
+  getMarketData,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
