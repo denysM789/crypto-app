@@ -14,38 +14,33 @@ import {
 import { NavText } from "fonts";
 import BtcDom from "btcdom.svg";
 import EthDom from "ethdom.svg";
+import { useSelector, useDispatch } from "react-redux";
+import { getMarketData } from "store/infoBar/actions";
 
 const InfoBar = () => {
-  const [marketData, setMarketData] = useState();
-  const [isLoading, setIsLoading] = useState(false);
+  const { data: marketData, isLoading } = useSelector((state) => state.infoBar);
+  const dispatch = useDispatch();
 
-  const getMarketData = async () => {
-    try {
-      const { data } = await axios("https://api.coingecko.com/api/v3/global");
-      setMarketData(data);
-      setIsLoading(false);
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  const hasMarketData = Object.keys(marketData.data).length !== 0;
+  const hasData = hasMarketData && !isLoading;
 
   useEffect(() => {
-    getMarketData();
+    dispatch(getMarketData());
   }, []);
 
   return (
     <Wrapper>
       {isLoading && <div>loading</div>}
-      {!isLoading && (
+      {hasData && (
         <InnerWrapper>
-          <NavText>Coins {marketData?.data.active_cryptocurrencies}</NavText>
+          <NavText>Coins {marketData.data.active_cryptocurrencies}</NavText>
           <NavText>Exchanges {marketData?.data.markets}</NavText>
           <NavText>
             $
             {Intl.NumberFormat("en-US", {
               notation: "compact",
               maximumFractionDigits: 1,
-            }).format(marketData?.data.total_market_cap.usd)}
+            }).format(marketData.data.total_market_cap.usd)}
           </NavText>
           <Volume>
             <PriceWrapper>
