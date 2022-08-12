@@ -41,6 +41,7 @@ import { CurrencyContext } from "index";
 import { getAllCoins } from "store/coinOverview/actions";
 import { useSelector, useDispatch } from "react-redux";
 import SkeletonCard from "components/SkeletonUI/SkeletonCard/SkeletonCard";
+import SkeletonTitle from "components/SkeletonUI/SkeletonTitle/SkeletonTitle";
 
 const CoinOverview = () => {
   const { coinsData: coins, isLoading } = useSelector(
@@ -61,10 +62,7 @@ const CoinOverview = () => {
 
   return (
     <OutsideWrapper>
-      {isLoading && <div>Loading</div>}
-
       <h3>Your Overview</h3>
-      <SkeletonCard />
 
       <Wrapper>
         {isWorking && (
@@ -100,6 +98,8 @@ const CoinOverview = () => {
             </tr>
           </HeaderRow>
         )}
+        {isLoading && <SkeletonTitle />}
+        {isLoading && <SkeletonCard />}
         {!isLoading && (
           <TableRowsWrapper>
             {coins.map((coin, index) => (

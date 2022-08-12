@@ -2,15 +2,15 @@ import React from "react";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 
-const SkeletonCard = () => {
+const SkeletonTitle = () => {
   return (
     <Skeleton
       duration={1}
-      height={50}
+      height={70}
       width={1000}
-      count={7}
+      count={1}
       baseColor="#191b1f"
     />
   );
 };
-export default SkeletonCard;
+export default SkeletonTitle;
