@@ -19,7 +19,7 @@ import { getCoinInfo } from "./store/coinInfo/actions";
 import { getMarketData } from "./store/infoBar/actions";
 import { getCoinData } from "./store/bottomChart/actions";
 
-function App(props) {
+function App() {
   const { theme } = useContext(ThemeContext);
   return (
     <ThemeProvider theme={theme === "light" ? lightTheme : darkTheme}>

@@ -16,7 +16,7 @@ const BottomChart = (props) => {
   const hasData = hasCoinData && !isLoading;
 
   useEffect(() => {
-    dispatch(getCoinData(props.activeDuration, props.coinId.coinId));
+    dispatch(getCoinData(props.coinId.coinId, props.activeDuration));
   }, [props.activeDuration]);
 
   const dataLabels = chart.prices.map((el) => {
