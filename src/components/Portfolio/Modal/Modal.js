@@ -59,12 +59,10 @@ const Modal = ({
   const openCalendar = () => {
     setShowCalendar(!showCalendar);
   };
-  useEffect(() => {}, [showCalendar]);
 
   const openInput = () => {
     setShowInput(!showInput);
   };
-  useEffect(() => {}, [showInput]);
 
   const hasData = coins.length !== 0 && !isLoading && showModal;
 

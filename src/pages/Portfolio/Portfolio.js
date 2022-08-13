@@ -16,7 +16,6 @@ import {
 
 const Portfolio = () => {
   const { coinsData, isLoading } = useSelector((state) => state.coinOverview);
-
   const { currency } = React.useContext(CurrencyContext);
   const [coins, setCoins] = useState([]);
   const [coin, setCoin] = useState({});
@@ -53,18 +52,6 @@ const Portfolio = () => {
   useEffect(() => {
     console.log(coin);
   }, [coin]);
-
-  console.log("rendering");
-
-  // useEffect(() => {
-  //   const handleClickOutside = () => {
-  //     setShowModal(false);
-  //   };
-  //   document.addEventListener("mousedown", handleClickOutside);
-  //   return () => {
-  //     document.removeEventListener("mousedown", handleClickOutside);
-  //   };
-  // }, [showModal]);
 
   return (
     <div>
