@@ -122,3 +122,9 @@ export const Slider = styled.div`
 export const DoubleSpan = styled.span`
   display: grid;
 `;
+
+export const StarWrapper = styled.div`
+  margin-right: 15px;
+`;
+
+export const StarButton = styled.button``;

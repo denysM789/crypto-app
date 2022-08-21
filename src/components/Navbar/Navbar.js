@@ -32,6 +32,11 @@ const Navbar = () => {
               <NavLinkStyle>Portfolio</NavLinkStyle>
             </NavLinkWrapper>
           </Link>
+          <Link to="/watchlist">
+            <NavLinkWrapper>
+              <NavLinkStyle>Watchlist</NavLinkStyle>
+            </NavLinkWrapper>
+          </Link>
         </NavbarLeft>
 
         <NavbarRight>

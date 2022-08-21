@@ -11,8 +11,14 @@ import {
   ContentWrapper,
 } from "./CoinList.styles";
 import InfoBar from "components/InfoBar/InfoBar";
-class CoinList extends React.Component {
-  render() {
+const CoinList = ({
+  watchCoin,
+  setWatchCoin,
+  watchlist,
+  setWatchlist,
+  handleWatchlistClick,
+}) => {
+  {
     return (
       <AnimatePresence>
         <Wrapper
@@ -29,13 +35,19 @@ class CoinList extends React.Component {
               <BarChart />
             </ChartWrapper>
             <CoinListWrapper>
-              <CoinOverview />
+              <CoinOverview
+                watchCoin={watchCoin}
+                setWatchCoin={setWatchCoin}
+                watchlist={watchlist}
+                setWatchlist={setWatchlist}
+                handleWatchlistClick={handleWatchlistClick}
+              />
             </CoinListWrapper>
           </ContentWrapper>
         </Wrapper>
       </AnimatePresence>
     );
   }
-}
+};
 
 export default CoinList;

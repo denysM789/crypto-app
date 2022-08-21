@@ -21,6 +21,8 @@ import {
   DoubleSpan,
   SliderWrapper,
   Slider,
+  StarButton,
+  StarWrapper,
 } from "./CoinOverview.styles";
 import "./styles.css";
 import Sparkline from "components/Sparkline/Sparkline";
@@ -42,8 +44,15 @@ import { getAllCoins } from "store/coinOverview/actions";
 import { useSelector, useDispatch } from "react-redux";
 import SkeletonCard from "components/SkeletonUI/SkeletonCard/SkeletonCard";
 import SkeletonTitle from "components/SkeletonUI/SkeletonTitle/SkeletonTitle";
+import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 
-const CoinOverview = () => {
+const CoinOverview = ({
+  watchCoin,
+  setWatchCoin,
+  watchlist,
+  setWatchlist,
+  handleWatchlistClick,
+}) => {
   const { coinsData: coins, isLoading } = useSelector(
     (state) => state.coinOverview
   );
@@ -60,6 +69,8 @@ const CoinOverview = () => {
 
   const isWorking = coins && !isLoading;
 
+  useEffect(() => {}, [watchCoin, watchlist]);
+
   return (
     <OutsideWrapper>
       <h3>Your Overview</h3>
@@ -68,6 +79,9 @@ const CoinOverview = () => {
         {isWorking && (
           <HeaderRow>
             <tr>
+              <THNum>
+                <CoinTableTitle></CoinTableTitle>
+              </THNum>
               <THNum>
                 <CoinTableTitle>#</CoinTableTitle>
               </THNum>
@@ -105,6 +119,19 @@ const CoinOverview = () => {
             {coins.map((coin, index) => (
               <tr>
                 <td>
+                  <CoinTableRowText>
+                    <StarWrapper>
+                      <StarButton onClick={() => handleWatchlistClick(coin)}>
+                        {watchlist.find((el) => el.id == coin.id) ? (
+                          <AiFillStar />
+                        ) : (
+                          <AiOutlineStar />
+                        )}
+                      </StarButton>
+                    </StarWrapper>
+                  </CoinTableRowText>
+                </td>
+                <td>
                   <CoinTableRowText>{index + 1}</CoinTableRowText>
                 </td>
                 <td>
@@ -117,7 +144,6 @@ const CoinOverview = () => {
                     </Link>
                   </TokenSpan>
                 </td>
-
                 <td>
                   <CoinTableRowText>
                     {currency?.symbol}
