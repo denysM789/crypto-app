@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import {
@@ -32,11 +32,9 @@ import { useWindowSize } from "hooks";
 import { NavLinkStyle } from "styles/Fonts";
 import Cross from "cross.svg";
 import { IconContext } from "react-icons";
-import { AiOutlineCaretDown, AiOutlineCaretUp } from "react-icons/ai";
 import { AiOutlineCalendar } from "react-icons/ai";
 import { BsInputCursorText } from "react-icons/bs";
 import DropdownCoins from "./Dropdown/DropdownCoins/DropdownCoins";
-import finalPropsSelectorFactory from "react-redux/es/connect/selectorFactory";
 
 const Modal = ({
   showModal,
@@ -49,11 +47,17 @@ const Modal = ({
   coins,
   setCoin,
   isLoading,
+  handleSaveAndContinue,
+  selectedDate,
+  setSelectedDate,
+  handleChange,
+  coinAmount,
+  setCoinAmount,
 }) => {
   const { width: screenWidth, height: screenHeight } = useWindowSize();
 
   const [showCalendar, setShowCalendar] = useState(false);
-  const [selectedDate, setSelectedDate] = useState(null);
+
   const [showInput, setShowInput] = useState(false);
 
   const openCalendar = () => {
@@ -126,7 +130,10 @@ const Modal = ({
                   {showInput && (
                     <InputOuterWrapper>
                       <InputWrapper>
-                        <AmountInput placeholder="Enter Coin-Amount"></AmountInput>
+                        <AmountInput
+                          onChange={handleChange}
+                          placeholder="Enter Coin-Amount"
+                        ></AmountInput>
                       </InputWrapper>
                     </InputOuterWrapper>
                   )}
@@ -144,6 +151,7 @@ const Modal = ({
                         onChange={(date) => setSelectedDate(date)}
                         placeholderText="Click to select date"
                         customInput={<CustomizedInput />}
+                        showTimeInput
                       />
                     </DatePickerWrapper>
                   )}
@@ -153,7 +161,9 @@ const Modal = ({
             </ContentWrapper>
             <ButtonsWrapper>
               <CloseButton onClick={closeModal}>Close</CloseButton>
-              <SaveButton>Save and Continue</SaveButton>
+              <SaveButton onClick={handleSaveAndContinue}>
+                Save and Continue
+              </SaveButton>
             </ButtonsWrapper>
           </Wrapper>
         </BackgroundOuterWrapper>
